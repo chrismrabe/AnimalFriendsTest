@@ -20,7 +20,7 @@ namespace AnimalFriendsTest.Core.Services
 
 		public int AddUser(User user)
 		{
-			throw new NotImplementedException();
+			return UserRepository.Add(user);
 		}
 	}
 }
