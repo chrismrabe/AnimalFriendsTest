@@ -16,6 +16,10 @@ namespace AnimalFriendsTest.Core.Validation
 
 		public static bool UserDetailsValid(this User user)
 		{
+
+			//Only one or the other
+			if (!(user.DateOfBirth == default(DateTime) ^ String.IsNullOrEmpty(user.Email))) { return false; }
+
 			if (!ValidateNameLength(user.FirstName) || !ValidateNameLength(user.Surname)) { return false; }
 
 			if(!ValidateAge(user.DateOfBirth)) { return false; }
