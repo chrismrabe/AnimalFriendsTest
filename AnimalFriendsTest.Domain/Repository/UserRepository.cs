@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AnimalFriendsTest.Domain.Repository
 {
-    internal class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
 	{
 		private readonly IUserContext _userContext;
 

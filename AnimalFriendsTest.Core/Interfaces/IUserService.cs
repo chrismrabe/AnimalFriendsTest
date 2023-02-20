@@ -1,4 +1,5 @@
-﻿using AnimalFriendsTest.Domain.Interfaces.Repository;
+﻿using AnimalFriendsTest.Domain.Interfaces.Context;
+using AnimalFriendsTest.Domain.Interfaces.Repository;
 using AnimalFriendsTest.Domain.Models.User;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,6 @@ namespace AnimalFriendsTest.Core.Interfaces
 {
 	public interface IUserService
 	{
-
-		IUserRepository UserRepository { get; }
-
 		int AddUser(User user);
 	}
 }

@@ -14,6 +14,6 @@ namespace AnimalFriendsTest.Api.Data
 			: base(options)
 		{
 		}
-		public DbSet<User> User { get; } = default!;
+		public DbSet<User> User { get; set; } = default!;
 	}
 }

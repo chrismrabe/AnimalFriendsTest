@@ -22,7 +22,7 @@ namespace AnimalFriendsTest.Core.Validation
 		{
 
 			//Only one or the other
-			if (!(user.DateOfBirth == default(DateTime) ^ String.IsNullOrEmpty(user.Email))) { return false; }
+			if (!((user.DateOfBirth == default(DateTime) || user.DateOfBirth == null) ^ String.IsNullOrEmpty(user.Email))) { return false; }
 
 			if(!ValidatePolicyReference(user.PolicyReference)) { return false; }
 
