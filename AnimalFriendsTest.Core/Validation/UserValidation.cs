@@ -16,11 +16,15 @@ namespace AnimalFriendsTest.Core.Validation
 
 		private static Regex emailValidation = new Regex(@"^[a-zA-Z0-9]{4,}@[a-zA-Z]{2,}\.(com|co.uk)$");
 
+		private static Regex policyReferenceValidation = new Regex(@"^[A-Z]{2}-\d{6}$");
+
 		public static bool UserDetailsValid(this User user)
 		{
 
 			//Only one or the other
 			if (!(user.DateOfBirth == default(DateTime) ^ String.IsNullOrEmpty(user.Email))) { return false; }
+
+			if(!ValidatePolicyReference(user.PolicyReference)) { return false; }
 
 			if (!ValidateNameLength(user.FirstName) || !ValidateNameLength(user.Surname)) { return false; }
 
@@ -32,7 +36,6 @@ namespace AnimalFriendsTest.Core.Validation
 			{
 				return ValidateAge(user.DateOfBirth);
 			}
-
 		}
 
 		public static bool ValidateNameLength(string name)
@@ -52,6 +55,11 @@ namespace AnimalFriendsTest.Core.Validation
 			if (emailAddress == null) { return false; }
 
 			return emailValidation.IsMatch(emailAddress);
+		}
+
+		public static bool ValidatePolicyReference(string policyReference)
+		{
+			return policyReferenceValidation.IsMatch(policyReference);
 		}
 	}
 }
