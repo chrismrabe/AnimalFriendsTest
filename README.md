@@ -15,3 +15,7 @@ run "update-database"
 2) Record as DTO for API to use, mapped to user model using AutoMapper
 3) Early validation against the Record
 4) Add a policy reference lookup to make sure no user was registered using that policy previously
+5) Would like to make the service calls async
+
+#Fail
+1) I should have named items for "Customer", rather than "User".
