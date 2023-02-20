@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AnimalFriendsTest.Domain.Models.User;
+using AnimalFriendsTest.Api.Data;
 
 namespace AnimalFriendsTest.Api.Endpoints;
 
