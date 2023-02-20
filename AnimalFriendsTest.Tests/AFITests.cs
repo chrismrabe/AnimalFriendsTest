@@ -73,6 +73,10 @@ namespace AnimalFriendsTest.Tests
 			new object[] { validName, "Sm", "D-345432", nullDateOfBirth, validEmailAddressCom}, //Bad last name
 			new object[] { validName, validSurname, validPolicyReference, badDateOfBirth, ""}, //invalid date of birth
 			new object[] { validName, validSurname, validPolicyReference, goodDateOfBirth, validEmailAddressCom}, //only dob or email
+			new object[] { validName, validSurname, "DD-345432", nullDateOfBirth, "john@smith.eu"}, //Bad email
+			new object[] { validName, validSurname, "DD-345432", nullDateOfBirth, "jo@smith.com"}, //Bad email
+			new object[] { validName, validSurname, "DD-345432", nullDateOfBirth, "john@s.com"}, //Bad email
+			new object[] { validName, validSurname, "DD-345432", nullDateOfBirth, "johns.com"}, //Bad email
 			new object[] { validName, validSurname, "3D-345432", nullDateOfBirth, validEmailAddressCom}, //Bad policy
 			new object[] { validName, validSurname, "DD-345D32", nullDateOfBirth, validEmailAddressCom}, //Bad policy
 			new object[] { validName, validSurname, "DD345432", nullDateOfBirth, validEmailAddressCom}, //Bad policy
