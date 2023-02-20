@@ -14,6 +14,8 @@ namespace AnimalFriendsTest.Core.Validation
 
 		private static Regex nameLengthValidation = new Regex(@"^(?=.{3,50}$).*");
 
+		private static Regex emailValidation = new Regex(@"^[a-zA-Z0-9]{4,}@[a-zA-Z]{2,}\.(com|co.uk)$");
+
 		public static bool UserDetailsValid(this User user)
 		{
 
@@ -22,9 +24,15 @@ namespace AnimalFriendsTest.Core.Validation
 
 			if (!ValidateNameLength(user.FirstName) || !ValidateNameLength(user.Surname)) { return false; }
 
-			if(!ValidateAge(user.DateOfBirth)) { return false; }
+			if (!String.IsNullOrEmpty(user.Email))
+			{
+				return ValidateEmail(user.Email);
+			}
+			else
+			{
+				return ValidateAge(user.DateOfBirth);
+			}
 
-			return true;
 		}
 
 		public static bool ValidateNameLength(string name)
@@ -37,6 +45,13 @@ namespace AnimalFriendsTest.Core.Validation
 			if (dateOfBirth == null) { return false; }
 			var legalDob = DateTime.Today.AddYears(-UserConstants.LegalAge);
 			return dateOfBirth < legalDob;
+		}
+
+		public static bool ValidateEmail(string? emailAddress)
+		{
+			if (emailAddress == null) { return false; }
+
+			return emailValidation.IsMatch(emailAddress);
 		}
 	}
 }
