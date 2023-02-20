@@ -1,4 +1,5 @@
 ﻿using AnimalFriendsTest.Core.Interfaces;
+using AnimalFriendsTest.Core.Validation;
 using AnimalFriendsTest.Domain.Interfaces.Repository;
 using AnimalFriendsTest.Domain.Models.User;
 using System;
@@ -20,7 +21,16 @@ namespace AnimalFriendsTest.Core.Services
 
 		public int AddUser(User user)
 		{
-			return UserRepository.Add(user);
+			var detailsValid = user.UserDetailsValid();
+			if(detailsValid)
+			{
+				return UserRepository.Add(user);
+			}
+			else
+			{
+				throw new InvalidDataException("There was adding the user to the system");
+			}
+			
 		}
 	}
 }
