@@ -44,17 +44,30 @@ namespace AnimalFriendsTest.Tests
 			userService = new UserService(mockUserRepository);
 		}
 
-		[Fact]
-		public void UserService_SavesCorrectly()
-		{
+		public static readonly object[][] CorrectData = {
+			new object[] { validName, validSurname, validPolicyReference, goodDateOfBirth, "" },
+			new object[] { validName, validSurname, validPolicyReference, nullDateOfBirth, validEmailAddressCom },
+			new object[] { validName, validSurname, validPolicyReference, nullDateOfBirth, validEmailAddressCoUk },
+		};
 
+		[Theory, MemberData(nameof(CorrectData))]
+		public void UserService_SavesCorrectly(string firstName, string Surname, string policyReference, DateTime? dateOfBirth, string Email)
+		{
+			//Assign
+			var addedUser = new User { FirstName = firstName, Surname = Surname, PolicyReference = policyReference, DateOfBirth = dateOfBirth, Email = Email };
+
+			//Act
+			int savedUserId = userService.AddUser(addedUser);
+
+			//Assert
+			mockUserRepository.Received().Add(addedUser);
 
 		}
 
 		[Fact]
-		public void USerService_SaveFails()
+		public void UserService_SaveFails()
 		{
-
+			Assert.True(false);
 		}
 	}
 }
