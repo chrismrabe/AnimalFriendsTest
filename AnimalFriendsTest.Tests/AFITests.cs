@@ -5,6 +5,7 @@ using AnimalFriendsTest.Domain.Interfaces.Repository;
 using AnimalFriendsTest.Domain.Models.User;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 
 namespace AnimalFriendsTest.Tests
 {
@@ -64,10 +65,30 @@ namespace AnimalFriendsTest.Tests
 
 		}
 
-		[Fact]
-		public void UserService_SaveFails()
+		public static readonly object[][] IncorrectData =
+{
+			new object[] { "", validSurname, validPolicyReference, goodDateOfBirth, ""}, //no first name
+			new object[] { "jo", validSurname, "D-345432", nullDateOfBirth, validEmailAddressCom}, //bad first name
+			new object[] { validName, "", validPolicyReference, goodDateOfBirth, ""}, //no last name
+			new object[] { validName, "Sm", "D-345432", nullDateOfBirth, validEmailAddressCom}, //Bad last name
+			new object[] { validName, validSurname, validPolicyReference, badDateOfBirth, ""}, //invalid date of birth
+			new object[] { validName, validSurname, validPolicyReference, goodDateOfBirth, validEmailAddressCom}, //only dob or email
+			new object[] { validName, validSurname, "3D-345432", nullDateOfBirth, validEmailAddressCom}, //Bad policy
+			new object[] { validName, validSurname, "DD-345D32", nullDateOfBirth, validEmailAddressCom}, //Bad policy
+			new object[] { validName, validSurname, "DD345432", nullDateOfBirth, validEmailAddressCom}, //Bad policy
+			new object[] { validName, validSurname, "DD-34543", nullDateOfBirth, validEmailAddressCom}, //Bad policy
+			new object[] { validName, validSurname, "D-345432", nullDateOfBirth, validEmailAddressCom}, //Bad policy
+		};
+		[Theory, MemberData(nameof(IncorrectData))]
+		public void UserService_AddUser_Fails(string firstName, string Surname, string policyReference, DateTime dateOfBirth, string Email)
 		{
-			Assert.True(false);
+			//Assign
+
+			var addedUser = new User { FirstName = firstName, Surname = Surname, PolicyReference = policyReference, DateOfBirth = dateOfBirth, Email = Email };
+
+			//Assert
+			Assert.Throws<InvalidDataException>(() => userService.AddUser(addedUser));
+
 		}
 	}
 }
