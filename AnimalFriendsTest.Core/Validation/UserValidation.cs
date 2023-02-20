@@ -1,4 +1,5 @@
-﻿using AnimalFriendsTest.Domain.Models.User;
+﻿using AnimalFriendsTest.Domain.Constants.User;
+using AnimalFriendsTest.Domain.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,9 @@ namespace AnimalFriendsTest.Core.Validation
 
 		public static bool UserDetailsValid(this User user)
 		{
-			if (!ValidateNameLength(user.FirstName) || !ValidateNameLength(user.Surname))
-			{
-				return false;
-			}
+			if (!ValidateNameLength(user.FirstName) || !ValidateNameLength(user.Surname)) { return false; }
+
+			if(!ValidateAge(user.DateOfBirth)) { return false; }
 
 			return true;
 		}
@@ -26,6 +26,13 @@ namespace AnimalFriendsTest.Core.Validation
 		public static bool ValidateNameLength(string name)
 		{
 			return nameLengthValidation.IsMatch(name);
+		}
+
+		public static bool ValidateAge(DateTime? dateOfBirth)
+		{
+			if (dateOfBirth == null) { return false; }
+			var legalDob = DateTime.Today.AddYears(-UserConstants.LegalAge);
+			return dateOfBirth < legalDob;
 		}
 	}
 }
