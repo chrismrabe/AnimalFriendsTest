@@ -17,6 +17,7 @@ public static class UserEndpoints
         routes.MapPost("/api/User/", async (User user, UserContext db) =>
         {
 
+			//TODO - Ideally we would inject this
             IUserService userService = new UserService(new UserRepository(db));
 
 			//TODO - Would like to use a Record as DTO, and map using AutoMapper
