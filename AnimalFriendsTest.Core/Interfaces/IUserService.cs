@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimalFriendsTest.Core.Interfaces
 {
-	internal interface IUserService
+	public interface IUserService
 	{
 
 		IUserRepository UserRepository { get; }
